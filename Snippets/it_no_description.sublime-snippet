@@ -1,9 +1,10 @@
 <snippet>
   <content><![CDATA[
-RSpec.configure do |config|
-  $0
+it do
+  ${1}
 end
 ]]></content>
-  <tabTrigger>config</tabTrigger>
+  <tabTrigger>it</tabTrigger>
   <scope>source.ruby.rspec</scope>
+  <description>it (no description)</description>
 </snippet>

@@ -6,4 +6,5 @@ end
 ]]></content>
   <tabTrigger>it</tabTrigger>
   <scope>source.ruby.rspec</scope>
+  <description>it '' do</description>
 </snippet>

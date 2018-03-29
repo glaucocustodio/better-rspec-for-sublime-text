@@ -3,25 +3,39 @@ import re
 import os
 
 def log(message):
-  print("=> Better RSpec: %s" % (message))
+  print("=> RSpec Buddy: %s" % (message))
 
 CREATE_IMPLEMENTATION_FILE_MESSAGE = """
 The implementation file doesn't exist.
 Do you want to create it?
+
+%s
 """
 
 CREATE_SPEC_FILE_MESSAGE = """
 The spec file doesn't exist.
 Do you want to create it?
+
+%s
 """
 
 SPEC_TEMPLATE = """\
-require 'spec_helper'
+RSpec.describe  do
+  describe '' do
+    it do
+    end
+  end
+end
 
 """
 
 RAILS_SPEC_TEMPLATE = """\
-require 'rails_helper'
+RSpec.describe  do
+  describe '' do
+    it do
+    end
+  end
+end
 
 """
 
@@ -52,15 +66,18 @@ class RspecToggleCommand(sublime_plugin.WindowCommand):
 
   def _open_implementation_file(self, folder, file):
     base_path = re.sub(r"^spec\/(.*?)_spec\.rb$", "\\1.rb", file)
+
     candidates = [base_path, "lib/%s" % base_path, "app/%s" % base_path]
+
+    if self._dotfile_custom_path(folder):
+      candidates.append("%s%s" % (self._dotfile_custom_path(folder).replace("\/", "/"), base_path))
 
     for path in candidates:
       fullpath = os.path.join(folder, path)
-
       if os.path.isfile(fullpath):
         return self.window.open_file(fullpath)
 
-    if not sublime.ok_cancel_dialog(CREATE_IMPLEMENTATION_FILE_MESSAGE):
+    if not sublime.ok_cancel_dialog(CREATE_IMPLEMENTATION_FILE_MESSAGE % (path)):
       return
 
     candidates = [
@@ -81,13 +98,24 @@ class RspecToggleCommand(sublime_plugin.WindowCommand):
     return os.path.isdir(os.path.join(folder, "app")) and \
            os.path.isdir(os.path.join(folder, "config"))
 
+  def _dotfile_custom_path(self, folder):
+    dotfile = os.path.join(folder, ".rspec-buddy")
+    if os.path.isfile(dotfile):
+      with open(dotfile, 'r') as file:
+        # remove empty lines
+        return "".join(line for line in file.read() if not line.isspace())
+
   def _open_spec_file(self, folder, file):
     if self._is_rails(folder):
       regex = r"^(?:app\/)?(.*?)\.rb$"
     else:
-      regex = r"^lib\/(.*?)\.rb$"
+      if self._dotfile_custom_path(folder):
+        regex = re.compile("^%s(.*?)\.rb$" % (self._dotfile_custom_path(folder)))
+      else:
+        regex = r"^lib\/(.*?)\.rb$"
 
     base_path = re.sub(regex, "spec/\\1_spec.rb", file)
+
     fullpath = os.path.join(folder, base_path)
     rails_helper = os.path.join(folder, "spec/rails_helper.rb")
 
@@ -98,7 +126,7 @@ class RspecToggleCommand(sublime_plugin.WindowCommand):
 
     if os.path.isfile(fullpath):
       self.window.open_file(fullpath)
-    elif sublime.ok_cancel_dialog(CREATE_SPEC_FILE_MESSAGE):
+    elif sublime.ok_cancel_dialog(CREATE_SPEC_FILE_MESSAGE % (base_path)):
       self._make_dir_for_path(fullpath)
       handler = open(fullpath, "w+")
       handler.write(template)

@@ -1,9 +1,0 @@
-<snippet>
-  <content><![CDATA[
-specify ${TM_QUOTE}${1:does something}${TM_QUOTE} do
-  $0
-end
-]]></content>
-  <tabTrigger>specify</tabTrigger>
-  <scope>source.ruby.rspec</scope>
-</snippet>

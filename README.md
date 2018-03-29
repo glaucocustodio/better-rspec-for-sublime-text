@@ -1,6 +1,28 @@
-# Better RSpec
+# RSpec Buddy
 
-Better RSpec syntax highlighting, with matchers for v3. Also includes implementation/spec toggling command.
+RSpec syntax highlighting, implementation/spec toggling command, snippets and support for config file.
+
+A modified fork of https://github.com/fnando/better-rspec-for-sublime-text.
+
+What is different?
+
+- it reads a `.rspec-buddy` file so you can customize the path to ignore when looking for spec and implementation files
+- it has less snippets (just the ones I use often)
+- some handy little tweaks
+
+## .rspec-buddy file
+
+Suppose you have the following structure:
+
+```
+project/
+  lib/
+    whatever/
+      file.rb
+```
+By invoking the `rspec_toggle` command, this plugin will look for the spec file at `project/spec/whatever/file_spec.rb`.
+
+But you can create a `project/.rspec-buddy` file with the content `lib\/whatever\/` for instance, then, the plugin will look for the spec file at `project/spec/file_spec.rb` (`whatever` is ignored).
 
 ## Toggling between implementation/spec
 
@@ -30,7 +52,7 @@ The best way of setting the syntax automatically is using the [ApplySyntax](http
 
 The MIT License (MIT)
 
-Copyright (c) 2014 Nando Vieira
+Copyright (c) 2018 Glauco Custódio
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
