@@ -22,15 +22,17 @@ project/
 ```
 By invoking the `rspec_toggle` command, this plugin will look for the spec file at `project/spec/whatever/file_spec.rb`.
 
-But you can create a `project/.rspec-buddy` file with the content `lib\/whatever\/` for instance, then, the plugin will look for the spec file at `project/spec/file_spec.rb` (`whatever` is ignored).
+But you can create a `project/.rspec-buddy` file with the content `lib/whatever/` for instance, then, the plugin will look for the spec file at `project/spec/file_spec.rb` (ignoring `lib/whatever/`).
+
+This file is optional, by default `lib/` will be ignored.
 
 ## Toggling between implementation/spec
 
-The default binding is `super-period`.
+The default binding is `super+.`.
 
 ```json
 {
-  "keys": ["super+period"],
+  "keys": ["super+."],
   "command": "rspec_toggle"
 }
 ```

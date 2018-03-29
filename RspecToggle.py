@@ -70,7 +70,7 @@ class RspecToggleCommand(sublime_plugin.WindowCommand):
     candidates = [base_path, "lib/%s" % base_path, "app/%s" % base_path]
 
     if self._dotfile_custom_path(folder):
-      candidates.append("%s%s" % (self._dotfile_custom_path(folder).replace("\/", "/"), base_path))
+      candidates.append("%s%s" % (self._dotfile_custom_path(folder), base_path))
 
     for path in candidates:
       fullpath = os.path.join(folder, path)
@@ -110,7 +110,7 @@ class RspecToggleCommand(sublime_plugin.WindowCommand):
       regex = r"^(?:app\/)?(.*?)\.rb$"
     else:
       if self._dotfile_custom_path(folder):
-        regex = re.compile("^%s(.*?)\.rb$" % (self._dotfile_custom_path(folder)))
+        regex = re.compile("^%s(.*?)\.rb$" % (self._dotfile_custom_path(folder).replace("/", "\/")))
       else:
         regex = r"^lib\/(.*?)\.rb$"
 

@@ -1,6 +1,6 @@
 [
   {
-    "caption": "Rspec Toggle: toggle test/implementation file",
+    "caption": "RSpec Toggle: toggle test/implementation file",
     "command": "rspec_toggle"
   }
 ]
