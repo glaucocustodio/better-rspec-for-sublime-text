@@ -6,4 +6,5 @@ end
 ]]></content>
   <tabTrigger>sce</tabTrigger>
   <scope>source.ruby.rspec</scope>
+  <description>scenario 'description' do</description>
 </snippet>

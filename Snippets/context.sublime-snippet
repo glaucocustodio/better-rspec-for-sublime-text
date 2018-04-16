@@ -5,5 +5,6 @@ context ${TM_QUOTE}${1:description}${TM_QUOTE} do
 end
 ]]></content>
   <tabTrigger>context</tabTrigger>
+  <description>context 'description' do</description>
   <scope>source.ruby.rspec</scope>
 </snippet>

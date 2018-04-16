@@ -4,5 +4,5 @@ expect(${1:object}).to receive(:${2:message}).with(${3:args}).and_return(${4:ret
 ]]></content>
   <tabTrigger>exptrwar</tabTrigger>
   <scope>source.ruby.rspec</scope>
-  <description>expect(object).to receive(:message).with(:args).and_return(:return)</description>
+  <description>expect(object).to receive(:message).with(args).and_return(:return)</description>
 </snippet>

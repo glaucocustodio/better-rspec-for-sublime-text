@@ -6,5 +6,5 @@ end
 ]]></content>
   <tabTrigger>des</tabTrigger>
   <scope>source.ruby.rspec</scope>
-  <description>describe "" do</description>
+  <description>describe 'description' do</description>
 </snippet>

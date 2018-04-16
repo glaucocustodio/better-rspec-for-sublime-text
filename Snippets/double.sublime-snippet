@@ -4,4 +4,5 @@ double(:${1:name}${2:, ${3:attrs}})$0
 ]]></content>
   <tabTrigger>double</tabTrigger>
   <scope>source.ruby.rspec</scope>
+  <description>double(:name, attrs)</description>
 </snippet>

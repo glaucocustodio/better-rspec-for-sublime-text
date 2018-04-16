@@ -6,4 +6,5 @@ end
 ]]></content>
   <tabTrigger>feat</tabTrigger>
   <scope>source.ruby.rspec</scope>
+  <description>feature 'description' do</description>
 </snippet>
