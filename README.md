@@ -6,27 +6,13 @@ A modified fork of https://github.com/fnando/better-rspec-for-sublime-text.
 
 What is different?
 
-- it reads a `.rspec-buddy` file so you can customize the path to ignore when looking for spec and implementation files
+- it reads an optional `.rspec-buddy` file so you can customize the path to ignore when looking for spec and implementation files
 - it has less snippets (just the ones I use often)
 - some handy little tweaks
 
-## .rspec-buddy file
-
-Suppose you have the following structure:
-
-```
-project/
-  lib/
-    whatever/
-      file.rb
-```
-By invoking the `rspec_toggle` command, this plugin will look for the spec file at `project/spec/whatever/file_spec.rb`.
-
-But you can create a `project/.rspec-buddy` file with the content `lib/whatever/` for instance, then, the plugin will look for the spec file at `project/spec/file_spec.rb` (ignoring `lib/whatever/`).
-
-This file is optional, by default `lib/` will be ignored.
-
 ## Toggling between implementation/spec
+
+
 
 The default binding is `super+.`.
 
@@ -49,6 +35,22 @@ You can change it to whatever you by adding the following snippet to your Keybin
 ## Syntax Detection
 
 The best way of setting the syntax automatically is using the [ApplySyntax](https://sublime.wbond.net/packages/ApplySyntax) package. Just install it and you're done!
+
+## .rspec-buddy file (optional)
+
+Suppose you have the following structure:
+
+```
+project/
+  lib/
+    whatever/
+      file.rb
+```
+By invoking the `rspec_toggle` command, this plugin will look for the spec file at `project/spec/whatever/file_spec.rb`.
+
+But you can create a `project/.rspec-buddy` file with the content `lib/whatever/` for instance, then, the plugin will look for the spec file at `project/spec/file_spec.rb` (ignoring `lib/whatever/`).
+
+This file is optional, by default `lib/` will be ignored.
 
 ## License
 
