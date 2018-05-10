@@ -26,7 +26,6 @@ RSpec.describe  do
     end
   end
 end
-
 """
 
 RAILS_SPEC_TEMPLATE = """\
@@ -36,7 +35,6 @@ RSpec.describe  do
     end
   end
 end
-
 """
 
 class RspecToggleCommand(sublime_plugin.WindowCommand):
