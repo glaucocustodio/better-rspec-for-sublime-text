@@ -1,6 +1,6 @@
 <snippet>
   <content><![CDATA[
-let(:${1:name}) { ${2:double(:name, ${3:attrs})} }
+let(:${1:name}) { double(:${1:name}, ${2:attrs}) }
 ]]></content>
   <tabTrigger>letd</tabTrigger>
   <scope>source.ruby.rspec</scope>
