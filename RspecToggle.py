@@ -104,9 +104,9 @@ class RspecToggleCommand(sublime_plugin.WindowCommand):
         return "".join(line for line in file.read() if not line.isspace())
 
   def _infer_file_constant(self, base_path):
-    path = re.sub("spec/|_spec.rb", "", base_path).title()
+    path = re.sub("spec/|_spec.rb", "", base_path).title().replace('/', '::')
     to_replace = {
-      '/': '::', '_': '', 'Models::': '', 'Controllers::': '', 'Jobs::': '', 'Mailers::': ''
+      '_': '', 'Models::': '', 'Controllers::': '', 'Jobs::': '', 'Mailers::': ''
     }
     for old, new in to_replace.items():
       path = path.replace(old, new)
