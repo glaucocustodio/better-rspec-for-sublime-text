@@ -28,15 +28,6 @@ RSpec.describe %s do
 end
 """
 
-RAILS_SPEC_TEMPLATE = """\
-RSpec.describe %s do
-  describe '' do
-    it do
-    end
-  end
-end
-"""
-
 class RspecToggleCommand(sublime_plugin.WindowCommand):
   def run(self):
     folders = self.window.folders()
@@ -106,7 +97,7 @@ class RspecToggleCommand(sublime_plugin.WindowCommand):
   def _infer_file_constant(self, base_path):
     path = re.sub("spec/|_spec.rb", "", base_path).title().replace('/', '::')
     to_replace = {
-      '_': '', 'Models::': '', 'Controllers::': '', 'Jobs::': '', 'Mailers::': ''
+      '_': '', 'Lib::': '', 'Models::': '', 'Controllers::': '', 'Jobs::': '', 'Mailers::': ''
     }
     for old, new in to_replace.items():
       path = path.replace(old, new)
@@ -122,21 +113,14 @@ class RspecToggleCommand(sublime_plugin.WindowCommand):
         regex = r"^lib\/(.*?)\.rb$"
 
     base_path = re.sub(regex, "spec/\\1_spec.rb", file)
-
     fullpath = os.path.join(folder, base_path)
-    rails_helper = os.path.join(folder, "spec/rails_helper.rb")
-
-    if os.path.isfile(rails_helper):
-      template = RAILS_SPEC_TEMPLATE
-    else:
-      template = SPEC_TEMPLATE
 
     if os.path.isfile(fullpath):
       self.window.open_file(fullpath)
     elif sublime.ok_cancel_dialog(CREATE_SPEC_FILE_MESSAGE % (base_path)):
       self._make_dir_for_path(fullpath)
       handler = open(fullpath, "w+")
-      handler.write(template % (self._infer_file_constant(base_path)))
+      handler.write(SPEC_TEMPLATE % (self._infer_file_constant(base_path)))
       handler.close()
       self.window.open_file(fullpath)
 
