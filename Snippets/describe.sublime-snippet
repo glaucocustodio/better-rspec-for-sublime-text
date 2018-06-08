@@ -1,7 +1,9 @@
 <snippet>
   <content><![CDATA[
 describe ${TM_QUOTE}${1:description}${TM_QUOTE} do
-  $0
+  it do
+    $2
+  end
 end
 ]]></content>
   <tabTrigger>des</tabTrigger>
