@@ -20,16 +20,7 @@ Do you want to create it?
 """
 
 SPEC_TEMPLATE = """\
-RSpec.describe  do
-  describe '' do
-    it do
-    end
-  end
-end
-"""
-
-RAILS_SPEC_TEMPLATE = """\
-RSpec.describe  do
+RSpec.describe %s do
   describe '' do
     it do
     end
@@ -103,6 +94,15 @@ class RspecToggleCommand(sublime_plugin.WindowCommand):
         # remove empty lines
         return "".join(line for line in file.read() if not line.isspace())
 
+  def _infer_file_constant(self, base_path):
+    path = re.sub("spec/|_spec.rb", "", base_path).title().replace('/', '::')
+    to_replace = {
+      '_': '', 'Lib::': '', 'Models::': '', 'Controllers::': '', 'Jobs::': '', 'Mailers::': ''
+    }
+    for old, new in to_replace.items():
+      path = path.replace(old, new)
+    return path
+
   def _open_spec_file(self, folder, file):
     if self._is_rails(folder):
       regex = r"^(?:app\/)?(.*?)\.rb$"
@@ -113,21 +113,14 @@ class RspecToggleCommand(sublime_plugin.WindowCommand):
         regex = r"^lib\/(.*?)\.rb$"
 
     base_path = re.sub(regex, "spec/\\1_spec.rb", file)
-
     fullpath = os.path.join(folder, base_path)
-    rails_helper = os.path.join(folder, "spec/rails_helper.rb")
-
-    if os.path.isfile(rails_helper):
-      template = RAILS_SPEC_TEMPLATE
-    else:
-      template = SPEC_TEMPLATE
 
     if os.path.isfile(fullpath):
       self.window.open_file(fullpath)
     elif sublime.ok_cancel_dialog(CREATE_SPEC_FILE_MESSAGE % (base_path)):
       self._make_dir_for_path(fullpath)
       handler = open(fullpath, "w+")
-      handler.write(template)
+      handler.write(SPEC_TEMPLATE % (self._infer_file_constant(base_path)))
       handler.close()
       self.window.open_file(fullpath)
 
