@@ -1,7 +1,0 @@
-<snippet>
-  <content><![CDATA[
-include_examples ${TM_QUOTE}${1:description}${TM_QUOTE}
-]]></content>
-  <tabTrigger>ic</tabTrigger>
-  <scope>source.ruby.rspec</scope>
-</snippet>

@@ -1,8 +1,0 @@
-<snippet>
-  <content><![CDATA[
-expect(${1:subject}).to receive(:${2:message})${3:.with(${4:args})}.and_return(${5:return})
-]]></content>
-  <tabTrigger>exptrwar</tabTrigger>
-  <scope>source.ruby.rspec</scope>
-  <description>expect(subject).to receive(:message).with(args).and_return(:return)</description>
-</snippet>

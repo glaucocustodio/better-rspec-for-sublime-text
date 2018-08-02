@@ -1,8 +1,0 @@
-<snippet>
-  <content><![CDATA[
-create(:${1:factory}${2:, ${3:args}})
-]]></content>
-  <tabTrigger>create</tabTrigger>
-  <scope>source.ruby.rspec</scope>
-  <description>create(:factory, args)</description>
-</snippet>

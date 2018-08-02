@@ -1,9 +1,0 @@
-<snippet>
-  <content><![CDATA[
-shared_context ${TM_QUOTE}${1:description}${TM_QUOTE} do
-  $0
-end
-]]></content>
-  <tabTrigger>shared_context</tabTrigger>
-  <scope>source.ruby.rspec</scope>
-</snippet>

@@ -1,8 +1,0 @@
-<snippet>
-  <content><![CDATA[
-expect(${1:subject}).to eq(${2:something})
-]]></content>
-  <tabTrigger>expectte</tabTrigger>
-  <scope>source.ruby.rspec</scope>
-  <description>expect(subject).to eq(something)</description>
-</snippet>

@@ -1,8 +1,0 @@
-<snippet>
-  <content><![CDATA[
-subject { described_class.new(${1:args}) }
-]]></content>
-  <tabTrigger>subject</tabTrigger>
-  <scope>source.ruby.rspec</scope>
-  <description>subject { described_class.new(args) }</description>
-</snippet>

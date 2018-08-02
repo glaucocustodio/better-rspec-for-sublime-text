@@ -8,8 +8,8 @@ What is different?
 
 - it reads an optional `.rspec-buddy` file so you can customize the path to ignore when looking for spec and implementation files
 - it infers the class/module name from the implementation file path to put at `RSpec.describe`
-- it has less snippets (just the ones I use often)
 - it does not add `require 'spec_helper'`/`require 'rails_helper'` to spec files because I put one of them in the `.rspec` file
+- it does not have snippets (create the ones you want)
 - some handy little tweaks
 
 ## Toggling between implementation/spec
