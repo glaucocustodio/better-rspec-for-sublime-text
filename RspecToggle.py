@@ -19,13 +19,16 @@ Do you want to create it?
 %s
 """
 
-SPEC_TEMPLATE = """\
-RSpec.describe %s do
-  describe '' do
+SPEC_TEMPLATE = """
+RSpec.describe %s do%s
+end
+"""
+
+DESCRIBE_TEMPLATE = """
+  describe '%s' do
     it do
     end
   end
-end
 """
 
 class RspecToggleCommand(sublime_plugin.WindowCommand):
@@ -103,6 +106,29 @@ class RspecToggleCommand(sublime_plugin.WindowCommand):
       path = path.replace(old, new)
     return path
 
+  def _describe_methods_from_implementation(self, folder, file):
+    implementation_file_path = open(os.path.join(folder, file))
+    ruby_methods = [re.findall(r"\s*def\s([\w\.]+)", line) for line in implementation_file_path]
+    ruby_methods_flatten = [current[0].replace('self.', '.') for current in ruby_methods if current]
+
+    result = ''
+
+    for method_name in ruby_methods_flatten:
+      if not method_name.startswith('.'):
+        result += DESCRIBE_TEMPLATE % ('#' + method_name)
+      else:
+        result += DESCRIBE_TEMPLATE % (method_name)
+
+    return result
+
+  def _spec_file_content(self, base_path, folder, file):
+    methods_described = self._describe_methods_from_implementation(folder, file)
+
+    if methods_described != '':
+      return SPEC_TEMPLATE % (self._infer_file_constant(base_path), methods_described)
+    else:
+      return SPEC_TEMPLATE % (self._infer_file_constant(base_path), DESCRIBE_TEMPLATE % '')
+
   def _open_spec_file(self, folder, file):
     if self._is_rails(folder):
       regex = r"^(?:app\/)?(.*?)\.rb$"
@@ -120,7 +146,7 @@ class RspecToggleCommand(sublime_plugin.WindowCommand):
     elif sublime.ok_cancel_dialog(CREATE_SPEC_FILE_MESSAGE % (base_path)):
       self._make_dir_for_path(fullpath)
       handler = open(fullpath, "w+")
-      handler.write(SPEC_TEMPLATE % (self._infer_file_constant(base_path)))
+      handler.write(self._spec_file_content(base_path, folder, file))
       handler.close()
       self.window.open_file(fullpath)
 
