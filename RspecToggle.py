@@ -20,7 +20,7 @@ Do you want to create it?
 """
 
 SPEC_TEMPLATE = """
-RSpec.describe %s do%s
+RSpec.describe %s do %s
 end
 """
 
@@ -29,7 +29,7 @@ DESCRIBE_TEMPLATE = """
     it do
     end
   end
-"""
+""".rstrip('\n')
 
 class RspecToggleCommand(sublime_plugin.WindowCommand):
   def run(self):
@@ -108,16 +108,29 @@ class RspecToggleCommand(sublime_plugin.WindowCommand):
 
   def _describe_methods_from_implementation(self, folder, file):
     implementation_file_path = open(os.path.join(folder, file))
-    ruby_methods = [re.findall(r"\s*def\s([\w\.]+)", line) for line in implementation_file_path]
-    ruby_methods_flatten = [current[0].replace('self.', '.') for current in ruby_methods if current]
+
+    public_methods = []
+    for line in implementation_file_path:
+      clean_line = line.strip(' ')
+      if clean_line == 'private\n':
+        break
+      else:
+        public_methods.append(re.findall(r"\s*def\s((?!initialize)[\w\.]+)", line))
+
+    public_methods_flatten = [current[0].replace('self.', '.') for current in public_methods if current]
 
     result = ''
 
-    for method_name in ruby_methods_flatten:
+    last_method = public_methods_flatten[-1] if public_methods_flatten else None
+
+    for method_name in public_methods_flatten:
       if not method_name.startswith('.'):
         result += DESCRIBE_TEMPLATE % ('#' + method_name)
       else:
         result += DESCRIBE_TEMPLATE % (method_name)
+
+      if last_method != method_name:
+        result += '\n'
 
     return result
 
