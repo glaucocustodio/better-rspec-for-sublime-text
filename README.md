@@ -15,7 +15,7 @@ What is different?
 
 ## Toggling between implementation/spec
 
-![alt tag](https://raw.githubusercontent.com/glaucocustodio/rspec-buddy-for-sublime-text/master/rspec_toggle_demo.gif)
+![alt tag](https://raw.githubusercontent.com/glaucocustodio/rspec-buddy-for-sublime-text/master/rspec_toggle_demo_v2.gif)
 
 The default binding is `super+.`.
 
