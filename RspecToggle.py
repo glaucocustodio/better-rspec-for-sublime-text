@@ -107,7 +107,7 @@ class RspecToggleCommand(sublime_plugin.WindowCommand):
     return path
 
   def _describe_methods_from_implementation(self, folder, file):
-    implementation_file_path = open(os.path.join(folder, file))
+    implementation_file_path = open(os.path.join(folder, file), "r", encoding="utf-8")
 
     public_methods = []
     for line in implementation_file_path:
