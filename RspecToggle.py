@@ -115,7 +115,7 @@ class RspecToggleCommand(sublime_plugin.WindowCommand):
       if clean_line == 'private\n':
         break
       else:
-        public_methods.append(re.findall(r"\s*def\s((?!initialize)[\w\.]+)", line))
+        public_methods.append(re.findall(r"\s*def\s((?!initialize)[\w\.?!=]+)", line))
 
     public_methods_flatten = [current[0].replace('self.', '.') for current in public_methods if current]
 
