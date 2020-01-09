@@ -68,6 +68,18 @@ But you can create a `project/.rspec-buddy` file with the content `lib/whatever/
 
 The best way of setting the syntax automatically is using the [ApplySyntax](https://sublime.wbond.net/packages/ApplySyntax) package. Just install it and you're done!
 
+## Installation
+
+### Package Control
+
+1. Open the Command Palette (<kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>p</kbd>) and choose “*Install Package*”
+2. Select “*RSpec Buddy*” and press <kbd>Enter</kbd>
+
+### Using Git
+
+1. Change to your Sublime Text `Packages` directory
+2. Clone repository `git clone https://github.com/glaucocustodio/rspec-buddy-for-sublime-text.git 'RSpec Buddy'`
+
 ## Similar packages
 
 - [Minitest Buddy](https://github.com/glaucocustodio/minitest-buddy-for-sublime-text)
