@@ -88,7 +88,8 @@ class RspecToggleCommand(sublime_plugin.WindowCommand):
 
   def _is_rails(self, folder):
     return os.path.isdir(os.path.join(folder, "app")) and \
-           os.path.isdir(os.path.join(folder, "config"))
+           os.path.isdir(os.path.join(folder, "config")) and \
+           os.path.isdir(os.path.join(folder, "bin", "rails"))
 
   def _dotfile_custom_path(self, folder):
     dotfile = os.path.join(folder, ".rspec-buddy")
